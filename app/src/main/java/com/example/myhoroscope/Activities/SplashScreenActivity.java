@@ -1,10 +1,12 @@
-package com.example.myhoroscope;
+package com.example.myhoroscope.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplashScreen extends AppCompatActivity {
+import com.example.myhoroscope.Activities.MainActivity;
+
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
