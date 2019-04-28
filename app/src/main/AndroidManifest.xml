@@ -3,7 +3,7 @@
     package="com.example.myhoroscope">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.QuoteActivity"></activity>
+        <activity android:name=".Activities.ZodiacActivity"></activity>
+        <activity android:name=".Activities.QuoteActivity" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.RegisterActivity" />

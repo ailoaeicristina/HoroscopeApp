@@ -1,52 +1,60 @@
 package com.example.myhoroscope.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 
 import com.example.myhoroscope.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    Button button1, button2, button3;
+    private DrawerLayout myDrawerLayout;
+    private ActionBarDrawerToggle myToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button1 = findViewById(R.id.registeractivity);
-        button2 = findViewById(R.id.loginactivity);
-        button3 = findViewById(R.id.quoteactivity);
+        myDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        myToggle = new ActionBarDrawerToggle(this, myDrawerLayout, R.string.open, R.string.close);
+        myDrawerLayout.addDrawerListener(myToggle);
+        myToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        button1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                openRegisterActivity();
-            }
-        });
+        setNavigationViewListener();
 
-        button2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                openLoginActivity();
-            }
-        });
+    }
 
-        button3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                openQuoteActivity();
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(myToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == R.id.logindb) openLoginActivity();
+        if(id == R.id.dailyquoutedb) openQuoteActivity();
+        if(id == R.id.zodiacdb) openZodiacActivity();
+
+        return true;
     }
 
     private void openLoginActivity() {
@@ -54,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openRegisterActivity() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
     public void openQuoteActivity() {
         Intent intent = new Intent(this, QuoteActivity.class);
+        startActivity(intent);
+    }
+
+    public void openZodiacActivity() {
+        Intent intent = new Intent(this, ZodiacActivity.class);
         startActivity(intent);
     }
 

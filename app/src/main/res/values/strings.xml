@@ -3,4 +3,6 @@
     <string name="checkbox">com.example.myhoroscope.Activities.checkbox</string>
     <string name="mail">com.example.myhoroscope.Activities.mail</string>
     <string name="password">com.example.myhoroscope.Activities.password</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
