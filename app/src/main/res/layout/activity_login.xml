@@ -82,4 +82,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="@+id/loginButton"
         app:layout_constraintTop_toTopOf="@+id/loginButton" />
+
+    <CheckBox
+        android:id="@+id/loginCheckBox"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Remember my login information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
 </android.support.constraint.ConstraintLayout>
