@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if(id == R.id.logindb) openLoginActivity();
-        if(id == R.id.dailyquoutedb) openQuoteActivity();
         if(id == R.id.zodiacdb) openZodiacActivity();
 
         return true;
@@ -59,11 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void openQuoteActivity() {
-        Intent intent = new Intent(this, QuoteActivity.class);
         startActivity(intent);
     }
 

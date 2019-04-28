@@ -165,18 +165,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
-/*
-    @Override
-    protected void onStart() {
 
-        super.onStart();
-        FirebaseUser user = auth.getCurrentUser();
-
-        if(user != null) {
-
-            updateUI();
-        }
-    }
-    */
 }
 

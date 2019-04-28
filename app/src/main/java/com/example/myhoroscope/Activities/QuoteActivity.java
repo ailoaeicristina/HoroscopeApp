@@ -16,14 +16,20 @@ import retrofit2.Retrofit;
 
 public class QuoteActivity extends AppCompatActivity {
 
-    private TextView textViewResult;
+    private TextView textViewTitle;
+    private TextView textViewText;
+    private TextView textViewAuthor;
+    private TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
 
-        textViewResult = findViewById(R.id.quote_result);
+        textViewTitle = findViewById(R.id.title);
+        textViewText = findViewById(R.id.quote);
+        textViewAuthor = findViewById(R.id.author);
+        textViewDate = findViewById(R.id.date);
 
         getDailyQuote();
     }
@@ -43,21 +49,28 @@ public class QuoteActivity extends AppCompatActivity {
                 if(response.body() != null) {
                     WResponse wResponse = (WResponse) response.body();
 
-                    String content = "";
-                    content += "Title: " + wResponse.getContents().getQuoteAtFirstIndex().getTitle() + "\n";
-                    content += "Quote: " + wResponse.getContents().getQuoteAtFirstIndex().getQuote() + "\n" ;
-                    content += "Author: " + wResponse.getContents().getQuoteAtFirstIndex().getAuthor() + "\n" ;
-                    content += "Date: " + wResponse.getContents().getQuoteAtFirstIndex().getDate() + "\n" ;
+                    String content;
+                    content = wResponse.getContents().getQuoteAtFirstIndex().getTitle();
+                    textViewTitle.setText(content);
 
-                    textViewResult.setText(content);
+                    content = wResponse.getContents().getQuoteAtFirstIndex().getQuote();
+                    textViewText.setText(content);
+
+                    content = wResponse.getContents().getQuoteAtFirstIndex().getAuthor();
+                    textViewAuthor.setText(content);
+
+                    content = wResponse.getContents().getQuoteAtFirstIndex().getDate();
+                    textViewDate.setText(content);
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
 
-                textViewResult.setText(t.getMessage());
-
+                textViewTitle.setText(t.getMessage());
+                textViewText.setText(t.getMessage());
+                textViewAuthor.setText(t.getMessage());
+                textViewDate.setText(t.getMessage());
             }
         });
 

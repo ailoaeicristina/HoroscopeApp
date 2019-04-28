@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/logindb" android:title="Login" />
-    <item android:id="@+id/dailyquoutedb" android:title="Daily quote" />
     <item android:id="@+id/zodiacdb" android:title="See your zodiac" />
     <item android:id="@+id/db" android:title="Another dashboard" />
     <item android:id="@+id/db2" android:title="Another dashboard" />
