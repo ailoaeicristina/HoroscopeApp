@@ -6,68 +6,115 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
-    private static final String TABLE_NAME = "zodiac_table";
-    private static final String COL1 = "ID";
-    private static final String COL2 = "name";
-    private static final String COL3 = "description";
+    private static final String DATABASE_NAME = "zodiac_db";
+    private static final String TABLE_SIGNS = "zodiac_table";
+    private static final String KEY_ID = "ID";
+    private static final String KEY_SIGN = "sign";
+    private static final String KEY_DESCRIPTION = "description";
 
 
     public DatabaseHelper(Context context) {
-        super(context, TABLE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String createTable = "CREATE TABLE " + TABLE_NAME + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL2 + " TEXT, " + COL3 + " TEXT)";
-        db.execSQL(createTable);
-
-        addData("Aries", "As the first sign in the zodiac, the presence of Aries always marks the beginning of something energetic and turbulent. " +
-                "They are continuously looking for dynamic, speed and competition, always being the first in everything - from work to social gatherings. " +
-                "The Sun in such high dignity gives them excellent organizational skills, so you'll rarely meet an Aries who isn't capable of finishing several things at once," +
-                " often before lunch break! Their challenges show when they get impatient, aggressive and vent anger pointing it to other people.");
-
-        addData("Taurus", "Practical and well-grounded, Taurus is the sign that harvests the fruits of labor. They feel the need to always be surrounded by love and beauty, " +
-                "turned to the material world, hedonism, and physical pleasures. People born with their Sun in Taurus are sensual and tactile, " +
-                "considering touch and taste the most important of all senses. Stable and conservative, this is one of the most reliable signs of the zodiac," +
-                " ready to endure and stick to their choices until they reach the point of personal satisfaction.");
+        String createZodiacTable = "CREATE TABLE " + TABLE_SIGNS + "(" + KEY_ID + " INTEGER PRIMARY KEY, " +
+                KEY_SIGN + " TEXT, " + KEY_DESCRIPTION + " TEXT" + ")";
+        db.execSQL(createZodiacTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SIGNS);
+
         onCreate(db);
     }
 
-    public boolean addData(String name, String description) {
+    public void addZodiacSign(ZodiacSign zodiacSign) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        contentValues.put(COL2, name);
-        contentValues.put(COL3, description);
+        values.put(KEY_SIGN, zodiacSign.getSign());
+        values.put(KEY_DESCRIPTION, zodiacSign.getDescription());
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        if(result == -1)
-            return false;
-        else
-            return true;
+        db.insert(TABLE_SIGNS, null, values);
+        db.close();
     }
 
-    public Cursor getData() {
+    ZodiacSign getZodiacSign(int id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_SIGNS, new String[] {KEY_ID, KEY_SIGN, KEY_DESCRIPTION}, KEY_ID + "=?",
+                new String[] {String.valueOf(id)}, null,  null, null, null);
+
+        if(cursor != null)
+            cursor.moveToFirst();
+
+        ZodiacSign zodiacSign = new ZodiacSign(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1), cursor.getString(2));
+
+        return zodiacSign;
+    }
+
+    public List<ZodiacSign> getAllZodiacSigns() {
+
+        List<ZodiacSign> zodiacSigns = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_SIGNS;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + COL1 + " FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        Cursor data = db.rawQuery(query, null);
-        return data;
+        if(cursor.moveToFirst()) {
+            do {
+                ZodiacSign zodiacSign = new ZodiacSign();
+                zodiacSign.setId(Integer.parseInt(cursor.getString(0)));
+                zodiacSign.setSign(cursor.getString(1));
+                zodiacSign.setDescription(cursor.getString(2));
+
+                zodiacSigns.add(zodiacSign);
+            } while (cursor.moveToNext());
+        }
+
+        return zodiacSigns;
     }
+
+    public int updateZodiacSign(ZodiacSign zodiacSign) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_DESCRIPTION, zodiacSign.getDescription());
+
+        return db.update(TABLE_SIGNS, values, KEY_ID + "=?",
+                new String[] {String.valueOf(zodiacSign.getId())});
+    }
+
+    public void deteleZodiacSign(ZodiacSign zodiacSign) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_SIGNS, KEY_ID + "=?",
+                new String[] {String.valueOf(zodiacSign.getId())});
+        db.close();
+    }
+
+
+
+
+
+
 
 }
