@@ -1,4 +1,4 @@
-package com.example.myhoroscope;
+package com.example.myhoroscope.Models;
 
 public class ZodiacSign {
 

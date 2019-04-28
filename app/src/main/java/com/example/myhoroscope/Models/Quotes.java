@@ -1,4 +1,4 @@
-package com.example.myhoroscope;
+package com.example.myhoroscope.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

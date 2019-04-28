@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ZodiacActivity">
 
-    <TextView
-        android:id="@+id/zodiacTextView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/zodiacRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
-    </TextView>
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

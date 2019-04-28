@@ -1,4 +1,4 @@
-package com.example.myhoroscope;
+package com.example.myhoroscope.Models;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

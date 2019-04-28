@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.myhoroscope.JsonPlaceHolderApi;
-import com.example.myhoroscope.NetworkClient;
-import com.example.myhoroscope.WResponse;
+import com.example.myhoroscope.Models.JsonPlaceHolderApi;
+import com.example.myhoroscope.Models.NetworkClient;
+import com.example.myhoroscope.Models.WResponse;
 import com.example.myhoroscope.R;
 
 import retrofit2.Call;
