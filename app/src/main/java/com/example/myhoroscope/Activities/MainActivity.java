@@ -10,7 +10,7 @@ import com.example.myhoroscope.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button1, button2;
+    Button button1, button2, button3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         button1 = findViewById(R.id.registeractivity);
         button2 = findViewById(R.id.loginactivity);
+        button3 = findViewById(R.id.quoteactivity);
 
         button1.setOnClickListener(new View.OnClickListener()
         {
@@ -37,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
                 openLoginActivity();
             }
         });
+
+        button3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openQuoteActivity();
+            }
+        });
     }
 
     private void openLoginActivity() {
@@ -48,4 +58,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+    public void openQuoteActivity() {
+        Intent intent = new Intent(this, QuoteActivity.class);
+        startActivity(intent);
+    }
+
 }
